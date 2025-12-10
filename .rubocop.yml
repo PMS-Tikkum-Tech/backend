@@ -1,0 +1,243 @@
+# frozen_string_literal: true
+
+# RuboCop Configuration untuk Backend Vibe Coding Standards
+
+require:
+  - rubocop-rails
+  - rubocop-rspec
+
+AllCops:
+  NewCops: enable
+  DisplayCopNames: true
+  DisplayStyleGuide: true
+  TargetRubyVersion: 3.1.6
+  Exclude:
+    - bin/*
+    - db/schema.rb
+    - db/migrate/*
+    - config/environments/production.rb
+    - vendor/bundle/**/*
+    - node_modules/**/*
+
+# Layout/LineLength: Max 83 kolom sesuai Backend Vibe Coding
+Layout/LineLength:
+  Max: 83
+
+# Metrics/CyclomaticComplexity: Max 7 per method
+Metrics/CyclomaticComplexity:
+  Max: 7
+
+# Metrics/MethodLength: Metode pendek dengan guard-clauses
+Metrics/MethodLength:
+  Max: 20
+
+# Metrics/BlockLength:
+Metrics/BlockLength:
+  Max: 25
+  Exclude:
+    - spec/**/*.rb
+    - db/migrate/*.rb
+
+# Metrics/ClassLength:
+Metrics/ClassLength:
+  Max: 100
+  Exclude:
+    - db/migrate/*.rb
+
+# Metrics/ModuleLength:
+Metrics/ModuleLength:
+  Max: 100
+
+# Style/OptionalParameters: Max 3 per method
+Style/OptionalParameters:
+  Max: 3
+
+# Style/Documentation: Tidak wajib untuk model/short methods
+Style/Documentation:
+  Enabled: false
+
+# Style/FrozenStringLiteralComment: Require frozen string literal
+Style/FrozenStringLiteralComment:
+  Enabled: true
+  EnforcedStyle: always
+
+# Style/ClassAndModuleChildren: Konsisten dengan namespaces
+Style/ClassAndModuleChildren:
+  Enabled: true
+  EnforcedStyle: nested
+
+# Rails/HasManyOrHasOneDependent: Wajib ada dependent option
+Rails/HasManyOrHasOneDependent:
+  Enabled: true
+
+# Rails/FilePath: Konsisten dengan Rails conventions
+Rails/FilePath:
+  Enabled: true
+
+# Rails/SkipsModelValidations: Wajib validasi di model
+Rails/SkipsModelValidations:
+  Enabled: true
+
+# Naming/FileName: Use snake_case untuk file names
+Naming/FileName:
+  Enabled: true
+
+# Naming/VariableNumber: Gunakan snake_case untuk variables dengan numbers
+Naming/VariableNumber:
+  Enabled: true
+
+# Style/StringLiterals: Gunakan single quotes
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
+
+# Style/HashSyntax: Gunakan ruby 1.9 hash syntax
+Style/HashSyntax:
+  EnforcedStyle: ruby19
+
+# Style/WordArray: Gunakan %w untuk word arrays
+Style/WordArray:
+  EnforcedStyle: percent
+
+# Style/SymbolArray: Gunakan %i untuk symbol arrays
+Style/SymbolArray:
+  EnforcedStyle: percent
+
+# Style/TrailingCommaInArray: Tidak pakai trailing comma di array/hash
+Style/TrailingCommaInArray:
+  EnforcedStyleForMultiline: no_commas
+
+# Style/TrailingCommaInHash: Tidak pakai trailing comma di hash
+Style/TrailingCommaInHash:
+  EnforcedStyleForMultiline: no_commas
+
+# Style/MultilineMethodCallIndentation: Konsisten indentation
+Style/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+
+# Style/MultilineBlockChain: Gunakan proper indentation
+Style/MultilineBlockChain:
+  Enabled: false
+
+# Lint/UnusedBlockArgument: Izinkan unused block arguments untuk service patterns
+Lint/UnusedBlockArgument:
+  Enabled: false
+
+# Lint/UselessAssignment: Izinkan untuk variable assignment dalam services
+Lint/UselessAssignment:
+  Enabled: false
+
+# Style/GuardClause: Gunakan guard clauses > nested if
+Style/GuardClause:
+  Enabled: true
+
+# Style/UnlessElse: Hindari unless dengan else
+Style/UnlessElse:
+  Enabled: true
+
+# Style/NilComparison: Gunakan .nil? instead of == nil
+Style/NilComparison:
+  Enabled: true
+
+# Style/PreferredHashMethods: Gunakan .key? dan .value?
+Style/PreferredHashMethods:
+  Enabled: true
+
+# Style/RedundantReturn: Hindari explicit return di akhir method
+Style/RedundantReturn:
+  Enabled: true
+
+# Style/ConditionalAssignment: Gunakan ternary operators
+Style/ConditionalAssignment:
+  Enabled: true
+
+# Clean Architecture specific cops
+Naming/MethodName:
+  AllowedPatterns:
+    - '^_+' # Private methods
+
+# Metrics/AbcSize: Complexity threshold
+Metrics/AbcSize:
+  Max: 15
+
+# Metrics/PerceivedComplexity:
+Metrics/PerceivedComplexity:
+  Max: 7
+
+# Rails/ActionControllerFlash: Tidak menggunakan flash di API
+Rails/ActionControllerFlash:
+  Enabled: false
+
+# Rails/ApplicationRecord: Gunakan ApplicationRecord sebagai base model
+Rails/ApplicationRecord:
+  Enabled: true
+
+# Rails/ApplicationJob: Gunakan ApplicationJob untuk jobs
+Rails/ApplicationJob:
+  Enabled: true
+
+# Rails/ApplicationMailer: Gunakan ApplicationMailer untuk mailers
+Rails/ApplicationMailer:
+  Enabled: true
+
+# Rails/HttpPositionalArguments: Gunakan keyword arguments di controllers
+Rails/HttpPositionalArguments:
+  Enabled: true
+
+# Rails/RelativeDateConstant: Gunakan Date.current, bukan Date.today
+Rails/RelativeDateConstant:
+  Enabled: true
+
+# Rails/TimeZone: Gunakan Time.current, bukan Time.now
+Rails/TimeZone:
+  Enabled: true
+
+# Rails/RenderInline: Render json untuk API responses
+Rails/RenderInline:
+  Enabled: false
+
+# Rails/FindBy: Gunakan where dengan hash syntax
+Rails/FindBy:
+  Enabled: true
+
+# Rails/OutputSafety: Pastikan output safety
+Rails/OutputSafety:
+  Enabled: true
+
+# Custom cops untuk Clean Architecture
+# Service layer validations
+Naming/FileName:
+  Include:
+    - 'services/**/*.rb'
+    - 'inputs/**/*.rb'
+    - 'presenters/**/*.rb'
+
+# RSpec specific
+RSpec/DescribedClass:
+  Enabled: true
+
+RSpec/MultipleExpectations:
+  Max: 2
+
+RSpec/ExampleLength:
+  Max: 20
+
+RSpec/NestedGroups:
+  Max: 4
+
+RSpec/VerifiedDoubles:
+  Enabled: true
+
+RSpec/ExpectActual:
+  EnforcedStyle: expect
+
+RSpec/MessageExpectation:
+  EnforcedStyle: expect
+
+RSpec/MessageSpies:
+  EnforcedStyle: expect
+
+RSpec/ContextWording:
+  Enabled: true
+
+RSpec/VariableName:
+  Enabled: true
