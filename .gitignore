@@ -1,0 +1,152 @@
+# Gem specific files
+*.gem
+.bundle/
+config/database.yml
+config/secrets.yml
+.env
+.env.local
+.env.production
+.env.development
+.env.test
+
+# Rails specific files
+*.rbc
+capybara-*.html
+.rspec
+/db/*.sqlite3
+/db/*.sqlite3-*
+/public/system
+/coverage/
+/spec/tmp
+*.log
+/tmp/
+/storage/
+.byebug_history
+
+# Compiled assets
+/.sass-cache
+/app/assets/config/.sprockets-manifest-*.json
+/coverage/
+
+# Environment normalization
+/.bundle
+/vendor/bundle/
+
+# Rails master key
+/config/master.key
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Editor files and directories
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Docker
+.dockerignore
+
+# RSpec
+/spec/examples.txt
+
+# SimpleCov
+/coverage/
+
+# Coverage reports used by tools like Coveralls or Codecov
+/.coverage/
+coverage/
+
+# Active Storage
+/storage/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Local development files
+.local/
+
+# Backup files
+*.bak
+*.backup
+
+# Log files
+*.log
+log/
+
+# Pid files
+*.pid
+tmp/pids/
+
+# Cache directories
+tmp/cache/
+tmp/sessions/
+
+# Asset pipeline
+public/assets/
+
+# RSpec coverage
+coverage/
+
+# Byebug session history
+.byebug_history
+
+# Compiled documentation
+.yardoc/
+doc/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Yarn Integrity file
+.yarn-integrity
+
+# dotenv environment variables file
+.env
+.env.test
+.env.production
+.env.development
+.env.local
+
+# Next.js build output
+.next/
+
+# Nuxt.js build / generate output
+.nuxt
+dist
+
+# Gatsby files
+.cache/
+public
+
+# Storybook build outputs
+.out
+.storybook-out
+
+# Temporary folders
+tmp/
+temp/
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
