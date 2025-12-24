@@ -2,17 +2,21 @@ Rails.application.routes.draw do
   # API v1 routes
   namespace :api do
     namespace :v1 do
-      mount_devise_token_auth_for 'User', at: 'auth'
+      # Authentication & User Management endpoints (unified in AuthController)
+      namespace :auth do
+        post :login
+        get :me
+        delete :logout
+      end
+
+      # User CRUD endpoints (handled by AuthController)
+      resources :users, only: %i[index show create update destroy], controller: 'auth'
 
       # Health check
-      get "health" => "health#index"
+      get 'health', to: 'health#index'
     end
   end
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
-  get "up" => "rails/health#show", as: :rails_health_check
-
-  # Defines the root path route ("/")
-  # root "posts#index"
+  # Reveal health status on /up
+  get 'up', to: 'rails/health#show', as: :rails_health_check
 end

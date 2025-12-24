@@ -1,40 +1,30 @@
 # frozen_string_literal: true
 
+require 'ostruct'
+
+# Base Service module for all services
+# Provides standard success/failure response pattern
 module BaseService
   extend ActiveSupport::Concern
 
-  included do
-    include ActiveModel::Model
-    include ActiveModel::Attributes
-    include ActiveModel::Validations
-    include ActiveModel::Attributes
+  # Return successful response with data and message
+  def success(data, message = 'Operation successful')
+    OpenStruct.new(success?: true, data: data, message: message)
   end
 
-  class_methods do
-    def call(*args, &block)
-      new(*args).call(&block)
+  # Return failed response with errors and message
+  def failure(errors, message = 'Operation failed')
+    error_list = errors.is_a?(Array) ? errors : [errors]
+    OpenStruct.new(success?: false, errors: error_list,
+                   message: message)
+  end
+
+  # Execute block within database transaction
+  def with_transaction
+    ActiveRecord::Base.transaction do
+      yield
     end
-  end
-
-  # Helper untuk eager loading
-  def eager_load_associations(associations)
-    associations.each { |assoc| send(assoc) }
-  end
-
-  private
-
-  def success(data = nil, message = nil)
-    OpenStruct.new(success?: true, data: data, message: message, errors: nil)
-  end
-
-  def failure(errors, message = nil)
-    OpenStruct.new(success?: false, data: nil, message: message, errors: errors)
-  end
-
-  def transaction(&block)
-    ActiveRecord::Base.transaction(&block)
   rescue StandardError => e
-    Rails.logger.error "Transaction failed: #{e.message}"
-    failure([e.message], "Transaction failed")
+    failure([e.message], 'Transaction failed')
   end
 end

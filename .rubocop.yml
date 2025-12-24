@@ -4,7 +4,6 @@
 
 require:
   - rubocop-rails
-  - rubocop-rspec
 
 AllCops:
   NewCops: enable
@@ -48,9 +47,9 @@ Metrics/ClassLength:
 Metrics/ModuleLength:
   Max: 100
 
-# Style/OptionalParameters: Max 3 per method
-Style/OptionalParameters:
-  Max: 3
+# Style/OptionalArguments: Max 3 per method
+Style/OptionalArguments:
+  Enabled: true
 
 # Style/Documentation: Tidak wajib untuk model/short methods
 Style/Documentation:
@@ -102,16 +101,16 @@ Style/WordArray:
 Style/SymbolArray:
   EnforcedStyle: percent
 
-# Style/TrailingCommaInArray: Tidak pakai trailing comma di array/hash
-Style/TrailingCommaInArray:
-  EnforcedStyleForMultiline: no_commas
+# Style/TrailingCommaInArrayLiteral: Tidak pakai trailing comma di array
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: no_comma
 
-# Style/TrailingCommaInHash: Tidak pakai trailing comma di hash
-Style/TrailingCommaInHash:
-  EnforcedStyleForMultiline: no_commas
+# Style/TrailingCommaInHashLiteral: Tidak pakai trailing comma di hash
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: no_comma
 
-# Style/MultilineMethodCallIndentation: Konsisten indentation
-Style/MultilineMethodCallIndentation:
+# Layout/MultilineMethodCallIndentation: Konsisten indentation
+Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
 
 # Style/MultilineBlockChain: Gunakan proper indentation
@@ -163,8 +162,8 @@ Metrics/AbcSize:
 Metrics/PerceivedComplexity:
   Max: 7
 
-# Rails/ActionControllerFlash: Tidak menggunakan flash di API
-Rails/ActionControllerFlash:
+# Rails/ActionControllerTestCase: Tidak menggunakan flash di API
+Rails/ActionControllerTestCase:
   Enabled: false
 
 # Rails/ApplicationRecord: Gunakan ApplicationRecord sebagai base model
@@ -203,41 +202,3 @@ Rails/FindBy:
 Rails/OutputSafety:
   Enabled: true
 
-# Custom cops untuk Clean Architecture
-# Service layer validations
-Naming/FileName:
-  Include:
-    - 'services/**/*.rb'
-    - 'inputs/**/*.rb'
-    - 'presenters/**/*.rb'
-
-# RSpec specific
-RSpec/DescribedClass:
-  Enabled: true
-
-RSpec/MultipleExpectations:
-  Max: 2
-
-RSpec/ExampleLength:
-  Max: 20
-
-RSpec/NestedGroups:
-  Max: 4
-
-RSpec/VerifiedDoubles:
-  Enabled: true
-
-RSpec/ExpectActual:
-  EnforcedStyle: expect
-
-RSpec/MessageExpectation:
-  EnforcedStyle: expect
-
-RSpec/MessageSpies:
-  EnforcedStyle: expect
-
-RSpec/ContextWording:
-  Enabled: true
-
-RSpec/VariableName:
-  Enabled: true

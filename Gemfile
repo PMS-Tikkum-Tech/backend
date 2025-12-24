@@ -35,6 +35,9 @@ gem "redis", "~> 5.4.1"
 # Production Monitoring
 gem "lograge", "~> 0.14.0"
 
+# Pagination
+gem "kaminari", "~> 1.2"
+
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
 

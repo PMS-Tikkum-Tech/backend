@@ -1,47 +1,51 @@
 # frozen_string_literal: true
 
-class UserPolicy < ApplicationPolicy
-  # Users can view their own profile
-  def show?
-    owner? || admin?
+# UserPolicy for user authorization using Pundit
+# Defines what actions each role can perform on users
+class UserPolicy
+  attr_reader :current_user, :user
+
+  def initialize(current_user, user)
+    @current_user = current_user
+    @user = user
   end
 
-  # Users can update their own profile
-  def update?
-    owner? || admin?
-  end
-
-  # Users can edit their own profile
-  def edit?
-    update?
-  end
-
-  # Only admins can delete users
-  def destroy?
-    admin?
-  end
-
-  # Admins can list all users, others see empty
   def index?
-    admin?
+    current_user&.admin?
   end
 
-  # Users can create new accounts (registration handled elsewhere)
+  def show?
+    current_user&.admin? || current_user&.id == user.id
+  end
+
   def create?
-    false # Registration is handled by devise_token_auth
+    current_user&.admin?
   end
 
-  # Only admins can create users directly
-  def new?
-    admin?
+  def update?
+    current_user&.admin? || current_user&.id == user.id
   end
 
-  class Scope < ApplicationPolicy::Scope
+  def destroy?
+    current_user&.admin?
+  end
+
+  # Scope class for indexing users
+  class Scope
+    attr_reader :current_user, :scope
+
+    def initialize(current_user, scope)
+      @current_user = current_user
+      @scope = scope
+    end
+
     def resolve
-      if admin?
+      if current_user&.admin?
         scope.all
+      elsif current_user
+        scope.where(id: current_user.id)
       else
-        scope.where(id: user.id) # Users can only see themselves
+        scope.none
       end
     end
   end
