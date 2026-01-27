@@ -7,7 +7,7 @@ class CreateUsers < ActiveRecord::Migration[7.1]
       t.string :last_name
       t.string :phone
 
-      # Role: 0 = owner, 1 = admin
+      # Role: 0 = owner, 1 = admin, 2 = Tenant/Buyyer
       t.integer :role, default: 0, null: false
       t.boolean :active, default: true, null: false
 
