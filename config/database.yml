@@ -1,0 +1,20 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  host: <%= ENV["DATABASE_HOST"] %>
+  port: <%= ENV["DATABASE_PORT"] %>
+  username: <%= ENV["DATABASE_USERNAME"] %>
+  password: <%= ENV["DATABASE_PASSWORD"] %>
+
+development:
+  <<: *default
+  database: <%= ENV.fetch("DATABASE_NAME_DEVELOPMENT", "Kyrastay_development") %>
+
+test:
+  <<: *default
+  database: <%= ENV.fetch("DATABASE_NAME_TEST", "Kyrastay_test") %>
+
+production:
+  <<: *default
+  database: <%= ENV.fetch("DATABASE_NAME_PRODUCTION", "Kyrastay_production") %>
