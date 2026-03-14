@@ -9,6 +9,7 @@ module Api
       before_action :ensure_admin!
       before_action :set_unit, only: [:show, :update, :destroy]
       before_action :set_property, only: [:index_by_property]
+      before_action :set_owner, only: [:index_by_owner]
 
       def index
         units = Unit.includes(:property, current_lease: :tenant)
@@ -36,6 +37,24 @@ module Api
       def index_by_property
         units = Unit.includes(:property, current_lease: :tenant)
                     .where(property_id: @property.id)
+        units = apply_filters(units)
+        units = apply_sort(units)
+
+        page = (params[:page].presence || 1).to_i
+        per_page = [(params[:per_page].presence || 10).to_i, 100].min
+        paginated = units.page(page).per(per_page)
+
+        render_success(
+          message: "Units retrieved successfully",
+          data: UnitPresenter.collection(paginated),
+          meta: pagination_meta(paginated),
+        )
+      end
+
+      def index_by_owner
+        units = Unit.includes(:property, current_lease: :tenant)
+                    .joins(:property)
+                    .where(properties: { user_id: @owner.id })
         units = apply_filters(units)
         units = apply_sort(units)
 
@@ -143,6 +162,16 @@ module Api
         render_error(
           message: "Property not found",
           errors: ["Property not found"],
+          status: :not_found,
+        )
+      end
+
+      def set_owner
+        @owner = User.owner.find(params[:owner_id])
+      rescue ActiveRecord::RecordNotFound
+        render_error(
+          message: "Owner not found",
+          errors: ["Owner not found"],
           status: :not_found,
         )
       end

@@ -29,6 +29,7 @@ Rails.application.routes.draw do
       resources :units, only: [:index, :show, :create, :update, :destroy] do
         collection do
           get "property/:property_id", action: :index_by_property
+          get "owner/:owner_id", action: :index_by_owner
         end
       end
 

@@ -115,6 +115,7 @@ Catatan upload:
 
 - `GET /api/v1/units`
 - `GET /api/v1/units/property/:property_id`
+- `GET /api/v1/units/owner/:owner_id`
 - `GET /api/v1/units/:id`
 - `POST /api/v1/units`
 - `PATCH /api/v1/units/:id`
@@ -139,6 +140,10 @@ Catatan upload unit photo:
 - `roomphotos` bisa lebih dari 1 file.
 - Format file: `pdf`, `png`, `jpg`, `jpeg`.
 - Untuk upload file gunakan `form-data` key `unit[roomphotos][]`.
+
+Contoh URL untuk langsung uji:
+- `GET /api/v1/units/property/2?page=1&per_page=5`
+- `GET /api/v1/units/owner/{{owner_user_id}}?page=1&per_page=5`
 
 ## Module 3 - Maintenance Requests
 

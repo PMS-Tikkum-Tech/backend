@@ -811,6 +811,41 @@
           }
         },
         {
+          "name": "List Units by Owner",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/units/owner/{{owner_user_id}}?page=1&per_page=5",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "units",
+                "owner",
+                "{{owner_user_id}}"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "per_page",
+                  "value": "5"
+                }
+              ]
+            }
+          }
+        },
+        {
           "name": "Show Unit",
           "request": {
             "method": "GET",
